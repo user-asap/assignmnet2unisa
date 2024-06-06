@@ -58,8 +58,7 @@ std::vector<Patient*> PatientFileLoader::loadPatientFile()
                 vitalStream >> hr >> comma >> spo2 >> comma >> bt >> comma >> ba;
                 // creating vitals object
                 Vitals* vitals = new Vitals(hr, spo2, bt, ba);
-               // patient->addVitals(
-                patient->addvit_file(vitals); // for not calculating Alert at the time of loading data
+                patient->addVitals(vitals, true); // specifies not to calculate alert 
                 // Adding vitals in patient object
             }
             patients.push_back(patient); // Add patient object to Patients vector

@@ -93,7 +93,7 @@ void PatientManagementSystem::addVitalsRecord()
         int bodyTemperature;
         int brainActivity;
 
-        cout << "Enter hear rate: ";
+        cout << "Enter heart rate: ";
         cin >> heartRate;
         cout << "Enter oxygen saturation: ";
         cin >> oxygenSaturation;
@@ -103,7 +103,7 @@ void PatientManagementSystem::addVitalsRecord()
         cin >> brainActivity;
 
         Vitals* v = new Vitals(heartRate, oxygenSaturation, bodyTemperature, brainActivity);
-        _patientLookup[pid]->addVitals(v);
+        _patientLookup[pid]->addVitals(v,false);
     }
     else {
         cout << "Patient not found" << endl;

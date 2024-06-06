@@ -27,7 +27,7 @@ void PatientDatabaseLoader::loadPatients(std::vector<Patient*>& patientIn){
     p->addDiagnosis(Diagnosis::TICCTOCC_BRAIN_DAMAGE);
 
     Vitals* v = new Vitals(90, 96, 37, 50);
-    p->addVitals(v);
+    p->addVitals(v,true);
 
     patientIn.push_back(p);
 
