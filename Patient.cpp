@@ -4,6 +4,8 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include "HospitalAlertSystemFacade.h"
+#include "GPNotificationSystemFacade.h"
 
 using namespace std;
 
@@ -101,6 +103,10 @@ void Patient::setAlertLevel(AlertLevel level)
 
     if (_alertLevel > AlertLevel::Green) {
         cout << "Patient: " << humanReadableID() << " has an alert level: ";
+
+        // creating object of the classes
+        HospitalAlertSystemFacade hospitalFacade;
+        GPNotificationSystemFacade gpFacade;
         switch (_alertLevel) {
         case AlertLevel::Yellow:
             cout << "Yellow";
@@ -110,6 +116,11 @@ void Patient::setAlertLevel(AlertLevel level)
             break;
         case AlertLevel::Red:
             cout << "Red";
+            cout << endl;
+            // call the function for alert passing patient as an argument(this)
+            hospitalFacade.sendAlertForPatient(this);
+            // call the function to notify GP
+            gpFacade.sendGPNotificationForPatient(this);
             break;
         default:
             break;
@@ -117,6 +128,7 @@ void Patient::setAlertLevel(AlertLevel level)
         cout << endl;
     }
     else {
+        // Default case
         cout << "Patient: " << humanReadableID() << " has an alert level: Green";
     }
 }
@@ -130,6 +142,11 @@ void Patient::calculateAlertLevel(const Vitals* v)
     for (const auto& diagnosis : diagnoses()) {
         AlertLevel level = AlertLevel::Green;
 
+        // vitals class contains follwing
+        // HR() ==> _heartRate
+        // BT() ==> _bodyTemperature
+        // SPO2() ==> _oxygenSaturation
+        // BA() ==> _brainActivity
         if (diagnosis == Diagnosis::AMOGUS_SUS) {
             if (v->HR() > 220) level = AlertLevel::Red;
             else if (v->HR() > 210) level = AlertLevel::Orange;
