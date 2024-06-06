@@ -5,7 +5,8 @@
 #include <tuple>
 
 #include "Patient.h"
-#include "PatientDatabaseLoader.h"
+//#include "PatientDatabaseLoader.h"
+#include "PatientFileLoader.h" // include new loader
 #include "Vitals.h"
 
 #include "GPNotificationSystemFacade.h"
@@ -14,8 +15,9 @@
 using namespace std;
 
 
-PatientManagementSystem::PatientManagementSystem() :
-    _patientDatabaseLoader(std::make_unique<PatientDatabaseLoader>()),
+PatientManagementSystem::PatientManagementSystem(const std::string& patientFile) :
+    //_patientDatabaseLoader(std::make_unique<PatientDatabaseLoader>()), old
+    _patientDatabaseLoader(std::make_unique<PatientFileLoader>(patientFile)),
     _hospitalAlertSystem(std::make_unique<HospitalAlertSystemFacade>()),
     _gpNotificationSystem(std::make_unique<GPNotificationSystemFacade>())
 {

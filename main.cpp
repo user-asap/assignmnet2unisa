@@ -9,7 +9,9 @@
 
 int main()
 {
-    auto pms = std::make_unique<PatientManagementSystem>();
+    std::string patientFile = "patients.txt";
+    auto pms = std::make_unique<PatientManagementSystem>(patientFile);
+
 
     pms->init();
     pms->run();

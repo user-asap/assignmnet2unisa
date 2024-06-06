@@ -28,6 +28,7 @@ public:
     const std::vector<std::string>& diagnoses() const;
 
     void addVitals(const Vitals* v);
+    void addvit_file(const Vitals* v); // for loading data from file
     const std::vector<const Vitals*> vitals() const;
 
     void setAlertLevel(AlertLevel level);

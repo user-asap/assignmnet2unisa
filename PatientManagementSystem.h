@@ -17,8 +17,8 @@ class Patient;
 class PatientManagementSystem
 {
 public:
-
-    PatientManagementSystem();
+    // parameter constructor for the patient file
+    PatientManagementSystem(const std::string& patientFile);
     ~PatientManagementSystem();
 
     // initialise the patient records

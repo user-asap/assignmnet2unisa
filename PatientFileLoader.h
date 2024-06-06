@@ -3,18 +3,24 @@
 
 #include <string>
 #include <vector>
+#include "AbstractPatientDatabaseLoader.h"
 
 
 // forward declare the patient class
 class Patient;
 
-class PatientFileLoader
+class PatientFileLoader : public AbstractPatientDatabaseLoader // inheritance
 {
 public:
     PatientFileLoader(const std::string& file);
 
-    // loads a list of patients from a file and returns a vector of those patients
+    // loads a list of patients from a file
     std::vector<Patient*> loadPatientFile();
+
+    // interface methods
+    void initialiseConnection() override {}
+    void loadPatients(std::vector<Patient*>& patientIn) override;
+    void closeConnection() override {}
 
 private:
     std::string _file;

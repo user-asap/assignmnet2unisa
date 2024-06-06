@@ -79,6 +79,10 @@ const std::vector<std::string>& Patient::diagnoses() const
     return _diagnosis;
 }
 
+void Patient::addvit_file(const Vitals* v) // to avoid calculating alert when fetching data from file
+{
+    _vitals.push_back(v);
+}
 void Patient::addVitals(const Vitals* v)
 {
     _vitals.push_back(v);
