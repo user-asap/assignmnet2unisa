@@ -122,27 +122,36 @@ void Patient::calculateAlertLevel(const Vitals* v)
 {
     AlertLevel newLevel = AlertLevel::Green; // Default alert - Green
 
-    if (primaryDiagnosis() == Diagnosis::AMOGUS_SUS) { 
-        if (v->HR() > 220) newLevel = AlertLevel::Red;
-        else if (v->HR() > 210) newLevel = AlertLevel::Orange;
-        else if (v->HR() > 200) newLevel = AlertLevel::Yellow;
-    }
-    else if (primaryDiagnosis() == Diagnosis::E_RUSH) {
-        if (v->BT() > 38) {
-            if (v->BA() > 110) newLevel = AlertLevel::Red;
-            else if (v->BA() > 100) newLevel = AlertLevel::Yellow;
+    // Looping through all diagnosis 
+    for (const auto& diagnosis : diagnoses()) {
+        AlertLevel level = AlertLevel::Green;
+
+        if (diagnosis == Diagnosis::AMOGUS_SUS) {
+            if (v->HR() > 220) level = AlertLevel::Red;
+            else if (v->HR() > 210) level = AlertLevel::Orange;
+            else if (v->HR() > 200) level = AlertLevel::Yellow;
         }
-    }
-    else if (primaryDiagnosis() == Diagnosis::NOCAP_SYNDROME) {
-        if (v->SPO2() < 90) newLevel = AlertLevel::Red;
-        else if (v->SPO2() < 92) newLevel = AlertLevel::Orange;
-        else if (v->SPO2() < 94) newLevel = AlertLevel::Yellow;
-    }
-    else if (primaryDiagnosis() == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
-        if ((age() < 35 && v->BA() < 10) || (age() >= 35 && v->BA() < 20)) {
-            newLevel = AlertLevel::Red;
+        else if (diagnosis == Diagnosis::E_RUSH) {
+            if (v->BT() > 38) {
+                if (v->BA() > 110) level = AlertLevel::Red;
+                else if (v->BA() > 100) level = AlertLevel::Yellow;
+            }
+        }
+        else if (diagnosis == Diagnosis::NOCAP_SYNDROME) {
+            if (v->SPO2() < 90) level = AlertLevel::Red;
+            else if (v->SPO2() < 92) level = AlertLevel::Orange;
+            else if (v->SPO2() < 94) level = AlertLevel::Yellow;
+        }
+        else if (diagnosis == Diagnosis::TICCTOCC_BRAIN_DAMAGE) {
+            if ((age() < 35 && v->BA() < 10) || (age() >= 35 && v->BA() < 20)) {
+                level = AlertLevel::Red;
+            }
+        }
+        // for highest level
+        if (level > newLevel) {
+            newLevel = level; 
         }
     }
 
-    setAlertLevel(newLevel);// setting alert level
+    setAlertLevel(newLevel);// setting hihest alert level
 }
